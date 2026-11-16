@@ -1,0 +1,32 @@
+# Sanal ortam ve IDE ayarları
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Python önbellekleri
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Veri: GEO dosyası yüzlerce MB, önbellek ~1,2 GB.
+# Depoya girmez; run_pipeline.py ilk çalıştırmada GEO'dan indirir.
+data/
+*.part
+
+# Sentetik test çıktıları (yalnızca kod testi için)
+figures/synthetic*/
+results/synthetic*/
+
+# İşletim sistemi dosyaları
+.DS_Store
+Thumbs.db
+
+# Yerel analiz çıktıları (örnek düzeyinde tahminler içerir)
+results/
+
+# Yerel kimlik bilgileri
+.env
+.env.*
+*.key
+*.pem
