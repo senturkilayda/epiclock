@@ -85,19 +85,30 @@ Hızlı kod denemesi için gerçek veri gerekmez: `python run_pipeline.py --synt
 | `report_numbers.py --run <klasör>` | Yazıdaki sayıları, AMAR ve plaka analizlerini yeniden hesaplar |
 | `compare_runs.py` | Çalıştırmaları tek tabloda karşılaştırır |
 
-## Grafikler
+Grafikler
+Bu bölümdeki görseller, GSE40279 verisinden Epiclock kapsamında elde edilen analizleri özetler. Rastgele eğitim/test bölmesi ve ölçüm plakalarının bütün olarak ayrıldığı değerlendirme farklı deneylerdir; aynı sonuçlar gibi yorumlanmamalıdır.
+1. Veri setinde yaş dağılımı
+656 kişinin kronolojik yaş dağılımı (19–101 yaş; medyan 65). Genç yaşlardaki örnek sayısı daha sınırlı olduğundan rastgele bölmede yaşa göre tabakalandırma kullanıldı.
 
-Aşağıdaki görseller ZIP paketinde bulunmaz; ilgili `run_pipeline.py` komutları çalıştırılınca yerel olarak üretilir.
+2. Görülmemiş ölçüm plakalarındaki yaş tahmini
+Elastic Net'in plaka bazlı ayrılmış test kümesindeki 98 kişi için gerçek yaş ve tahmin edilen yaş karşılaştırması. Test MAE yaklaşık 3,78 yıl (grafikte yuvarlanarak 3,8 yıl); Pearson korelasyonu yaklaşık 0,95. Kesikli çizgi kusursuz tahmini gösterir.
 
-| Dosya | Soru |
-|---|---|
-| `figures/gse40279/01_yas_dagilimi.png` | Veride hangi yaşlar var? |
-| `figures/gse40279/02_tahmin_vs_gercek.png` | Model görmediği kişilerde ne kadar isabetli? |
-| `figures/gse40279/03_model_karsilastirma.png` | Modeller taban çizgisinden ne kadar iyi? |
-| `figures/gse40279/04_yasa_bagli_sapma.png` | Hata yaşa göre sistematik mi? |
-| `figures/gse40279/05_en_etkili_cpgler.png` | Model hangi CpG'lere dayanıyor? |
-| `figures/gse40279_plate_sex/06_varsayimsal_ornek.png` | Yazıdaki 60 → 58 → 52 örneği dağılımın neresinde? |
-| `figures/gse40279_plate_sex/07_plaka_etkisi.png` | Yaşa göre düzeltilmiş hata plakalara göre değişiyor mu? |
+3. Model karşılaştırması: plaka bazlı doğrulama
+Ölçüm plakalarına göre gruplandırılmış çapraz doğrulamada ortalama MAE: Elastic Net 3,99, Ridge 4,22, XGBoost 4,66 yıl. Daireler çapraz doğrulama katlarını, elmaslar ayrılmış test kümesinin sonuçlarını gösterir. Basit ortalama yaş tahmini taban çizgisi olarak verilir.
+
+4. Yaşa bağlı tahmin yanlılığı
+Elastic Net'in kat dışı tahminlerinde (n = 558), hata yaşla değişiyor: gençler genel olarak daha büyük, ileri yaştakiler daha küçük tahmin edilebiliyor. Bu nedenle tahmin edilen yaş − gerçek yaş farkı tek başına biyolojik yaş ivmesi sayılmamalıdır.
+
+5. Elastic Net'in en yüksek ağırlık verdiği altı CpG
+En büyük mutlak model katsayısına göre seçilen altı CpG için metilasyonun yaşla ilişkisi. Katsayı büyüklüğü bir değişkenin biyolojik olarak nedensel olduğunu göstermez; ayrıca çok değişkenli model katsayısının işareti, tek başına korelasyonun işaretiyle farklı olabilir.
+
+6. Sekiz yıl daha genç tahmin edilen kişiler
+Plaka bazlı değerlendirmede bazı kişilerin tahmini yaşı gerçek yaşından sekiz yıl veya daha fazla düşük bulundu (yaklaşık %6,5). Grafik, farklı kişilerin tahmin hatalarını ve yazıdaki varsayımsal müdahale örneğini karşılaştırır; aynı kişiye yapılan tekrarlı ölçümü veya gerçek gençleşmeyi göstermez.
+
+7. Plakalar arasında düzeltilmiş hata farklılıkları
+Yaşa göre düzeltilmiş tahmin hatasının plakalara göre dağılımı. Plaka medyanları arasında yaklaşık 8,2 yıllık fark görüldü (Kruskal–Wallis, p < 0,001). Ancak ölçüm plakaları ile örnek özellikleri birbiriyle ilişkili olduğundan fark yalnızca teknik parti etkisine bağlanamaz.
+
+Yorum sınırı: Grafikler kronolojik yaş tahminini ve model değerlendirmesini gösterir; herhangi bir tedavinin insanları gençleştirdiğini kanıtlamaz. Ana veriler: NCBI GEO GSE40279.
 
 ## Bilinen sınırlamalar
 
