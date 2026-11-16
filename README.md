@@ -1,6 +1,6 @@
 # epiclock: GSE40279 ile epigenetik yaş tahmini
 
-Hannum ve ark. (2013) verisiyle (GEO **GSE40279**, 656 kan örneği, 19–101 yaş) DNA
+Hannum ve ark. (2013) verisiyle (GEO **GSE40279**, 656 kan örneği, 19-101 yaş) DNA
 metilasyonundan kronolojik yaş tahmini. Projenin amacı, birinci nesil bir epigenetik saatin
 nasıl kurulduğunu ve nerelerde yanılabileceğini sızıntısız bir değerlendirmeyle göstermek.
 
@@ -92,7 +92,7 @@ Bu bölümde GSE40279 veri setiyle gerçekleştirdiğim epigenetik yaş tahmini 
 
 ### 1. Veri setinin yaş dağılımı
 
-Veri seti 19–101 yaş aralığında 656 kişiden oluşuyor. Medyan yaş 65. Genç yaşlarda daha az örnek bulunduğu için rastgele eğitim/test bölmesinde yaşa göre tabakalandırma kullandım.
+Veri seti 19-101 yaş aralığında 656 kişiden oluşuyor. Medyan yaş 65. Genç yaşlarda daha az örnek bulunduğu için rastgele eğitim/test bölmesinde yaşa göre tabakalandırma kullandım.
 
 ![GSE40279 - Yaş dağılımı](figures/01_yas_dagilimi.png)
 
@@ -183,5 +183,5 @@ Ancak ölçüm plakaları ve örnek özellikleri ilişkili olduğu için bu fark
 ## Veri ve kaynak
 
 - Hannum, G. ve ark. (2013). Genome-wide Methylation Profiles Reveal Quantitative Views of Human
-  Aging Rates. *Molecular Cell*, 49, 359–367. https://doi.org/10.1016/j.molcel.2012.10.016
+  Aging Rates. *Molecular Cell*, 49, 359-367. https://doi.org/10.1016/j.molcel.2012.10.016
 - NCBI GEO, GSE40279: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE40279
