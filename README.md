@@ -85,30 +85,88 @@ Hızlı kod denemesi için gerçek veri gerekmez: `python run_pipeline.py --synt
 | `report_numbers.py --run <klasör>` | Yazıdaki sayıları, AMAR ve plaka analizlerini yeniden hesaplar |
 | `compare_runs.py` | Çalıştırmaları tek tabloda karşılaştırır |
 
-Grafikler
-Bu bölümdeki görseller, GSE40279 verisinden Epiclock kapsamında elde edilen analizleri özetler. Rastgele eğitim/test bölmesi ve ölçüm plakalarının bütün olarak ayrıldığı değerlendirme farklı deneylerdir; aynı sonuçlar gibi yorumlanmamalıdır.
-1. Veri setinde yaş dağılımı
-656 kişinin kronolojik yaş dağılımı (19–101 yaş; medyan 65). Genç yaşlardaki örnek sayısı daha sınırlı olduğundan rastgele bölmede yaşa göre tabakalandırma kullanıldı.
 
-2. Görülmemiş ölçüm plakalarındaki yaş tahmini
-Elastic Net'in plaka bazlı ayrılmış test kümesindeki 98 kişi için gerçek yaş ve tahmin edilen yaş karşılaştırması. Test MAE yaklaşık 3,78 yıl (grafikte yuvarlanarak 3,8 yıl); Pearson korelasyonu yaklaşık 0,95. Kesikli çizgi kusursuz tahmini gösterir.
+## Grafikler
 
-3. Model karşılaştırması: plaka bazlı doğrulama
-Ölçüm plakalarına göre gruplandırılmış çapraz doğrulamada ortalama MAE: Elastic Net 3,99, Ridge 4,22, XGBoost 4,66 yıl. Daireler çapraz doğrulama katlarını, elmaslar ayrılmış test kümesinin sonuçlarını gösterir. Basit ortalama yaş tahmini taban çizgisi olarak verilir.
+Bu bölümde GSE40279 veri setiyle gerçekleştirdiğim epigenetik yaş tahmini analizinin yedi görseli yer alıyor. Rastgele veri bölmesi ve plaka bazlı doğrulama farklı deneylerdir; sonuçları ayrı değerlendirilmelidir.
 
-4. Yaşa bağlı tahmin yanlılığı
-Elastic Net'in kat dışı tahminlerinde (n = 558), hata yaşla değişiyor: gençler genel olarak daha büyük, ileri yaştakiler daha küçük tahmin edilebiliyor. Bu nedenle tahmin edilen yaş − gerçek yaş farkı tek başına biyolojik yaş ivmesi sayılmamalıdır.
+### 1. Veri setinin yaş dağılımı
 
-5. Elastic Net'in en yüksek ağırlık verdiği altı CpG
-En büyük mutlak model katsayısına göre seçilen altı CpG için metilasyonun yaşla ilişkisi. Katsayı büyüklüğü bir değişkenin biyolojik olarak nedensel olduğunu göstermez; ayrıca çok değişkenli model katsayısının işareti, tek başına korelasyonun işaretiyle farklı olabilir.
+Veri seti 19–101 yaş aralığında 656 kişiden oluşuyor. Medyan yaş 65. Genç yaşlarda daha az örnek bulunduğu için rastgele eğitim/test bölmesinde yaşa göre tabakalandırma kullandım.
 
-6. Sekiz yıl daha genç tahmin edilen kişiler
-Plaka bazlı değerlendirmede bazı kişilerin tahmini yaşı gerçek yaşından sekiz yıl veya daha fazla düşük bulundu (yaklaşık %6,5). Grafik, farklı kişilerin tahmin hatalarını ve yazıdaki varsayımsal müdahale örneğini karşılaştırır; aynı kişiye yapılan tekrarlı ölçümü veya gerçek gençleşmeyi göstermez.
+![GSE40279 - Yaş dağılımı](figures/01_yas_dagilimi.png)
 
-7. Plakalar arasında düzeltilmiş hata farklılıkları
-Yaşa göre düzeltilmiş tahmin hatasının plakalara göre dağılımı. Plaka medyanları arasında yaklaşık 8,2 yıllık fark görüldü (Kruskal–Wallis, p < 0,001). Ancak ölçüm plakaları ile örnek özellikleri birbiriyle ilişkili olduğundan fark yalnızca teknik parti etkisine bağlanamaz.
+### 2. Gerçek yaş ve tahmin edilen yaş
 
-Yorum sınırı: Grafikler kronolojik yaş tahminini ve model değerlendirmesini gösterir; herhangi bir tedavinin insanları gençleştirdiğini kanıtlamaz. Ana veriler: NCBI GEO GSE40279.
+Elastic Net modelinin eğitim sırasında görmediği ölçüm plakalarından gelen 98 kişilik test kümesindeki performansı:
+
+- **Test MAE:** 3,78 yıl
+- **Pearson korelasyonu:** yaklaşık 0,95
+- **Test örnek sayısı:** 98
+
+Kesikli çizgi, tahmin edilen yaşın gerçek yaşa eşit olduğu noktaları gösteriyor.
+
+![Elastic Net - Gerçek ve tahmin edilen yaş](figures/02_test_tahmin_vs_gercek.png)
+
+### 3. Makine öğrenmesi modellerinin karşılaştırılması
+
+Ölçüm plakalarına göre gruplandırılmış çapraz doğrulamada elde edilen ortalama mutlak hata (MAE) değerleri:
+
+| Model | CV MAE (yıl) |
+|---|---:|
+| Elastic Net | 3,99 |
+| Ridge | 4,22 |
+| XGBoost | 4,66 |
+
+Grafikte daireler çapraz doğrulama katlarını, elmaslar ayrı tutulan test kümesinin sonuçlarını gösteriyor.
+
+![Model karşılaştırması](figures/03_model_karsilastirma.png)
+
+### 4. Yaşa bağlı tahmin yanlılığı
+
+Elastic Net'in kat dışı tahminleri (n = 558), modelin hata dağılımının yaşa göre değiştiğini gösteriyor.
+
+Model genç kişileri olduğundan yaşlı, ileri yaştaki kişileri ise olduğundan genç tahmin etme eğilimi gösteriyor.
+
+Bu nedenle tahmin edilen yaş ile kronolojik yaş arasındaki fark, tek başına biyolojik yaşlanma hızı olarak yorumlanamaz.
+
+![Yaşa bağlı tahmin yanlılığı](figures/04_yasa_bagli_sapma.png)
+
+### 5. Yaş tahmininde en yüksek ağırlığa sahip altı CpG
+
+Elastic Net'in en büyük mutlak katsayıları verdiği altı CpG bölgesinde metilasyon düzeylerinin yaşla ilişkisini inceledim.
+
+Bu bölgeler arasında yaşlanma araştırmalarında bilinen ELOVL2 ve KLF14 ile ilişkili CpG'ler de bulunuyor.
+
+Katsayı büyüklüğü, bir CpG'nin yaşlanmaya neden olduğunu göstermez.
+
+![En önemli altı CpG](figures/05_en_onemli_6_cpg.png)
+
+### 6. Sekiz yıl daha genç tahmin edilmek ne anlama geliyor?
+
+Plaka bazlı değerlendirmede kişilerin yaklaşık %6,5'inin tahmini yaşı, gerçek yaşından en az sekiz yıl düşük çıktı.
+
+Grafikteki 60 → 58 → 52 örneği varsayımsaldır. Gerçek bir gençleşme müdahalesini temsil etmez.
+
+Farklı kişilerin tahmin hataları, aynı bireyde tekrarlanan ölçümlerin değişkenliğini göstermez.
+
+![Sekiz yıl daha genç tahmin edilen kişiler](figures/06_en_az_8_yil_genc_tahmin_orani.png)
+
+### 7. Ölçüm plakaları arasındaki farklılıklar
+
+Yaşa göre düzeltilmiş tahmin hatalarının medyanları, ölçüm plakaları arasında yaklaşık 8,2 yıl farklılık gösterdi.
+
+Kruskal–Wallis testinde p < 0,001 bulundu.
+
+Ancak ölçüm plakaları ve örnek özellikleri ilişkili olduğu için bu farkın doğrudan teknik parti etkisinden kaynaklandığı söylenemez.
+
+![Ölçüm plakalarına göre tahmin hataları](figures/07_plaka_farki.png)
+
+---
+
+**Bilimsel yorum:** Bu proje, DNA metilasyonundan kronolojik yaş tahminini ve makine öğrenmesi modellerinin güvenilirliğini inceliyor. Grafikler biyolojik gençleşmeyi veya herhangi bir tedavinin etkinliğini kanıtlamıyor.
+
+**Veri kaynağı:** [NCBI GEO - GSE40279](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE40279)
 
 ## Bilinen sınırlamalar
 
