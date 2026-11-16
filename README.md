@@ -1,4 +1,4 @@
-# epiclock - GSE40279 ile epigenetik yaş tahmini
+# epiclock: GSE40279 ile epigenetik yaş tahmini
 
 Hannum ve ark. (2013) verisiyle (GEO **GSE40279**, 656 kan örneği, 19–101 yaş) DNA
 metilasyonundan kronolojik yaş tahmini. Projenin amacı, birinci nesil bir epigenetik saatin
