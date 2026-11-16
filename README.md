@@ -4,7 +4,7 @@ Hannum ve ark. (2013) verisiyle (GEO **GSE40279**, 656 kan örneği, 19–101 ya
 metilasyonundan kronolojik yaş tahmini. Projenin amacı, birinci nesil bir epigenetik saatin
 nasıl kurulduğunu ve nerelerde yanılabileceğini sızıntısız bir değerlendirmeyle göstermek.
 
-İlgili Medium yazısının bağlantısı yayımlandığında buraya eklenecek.
+İlgili Medium yazısının bağlantısı: https://medium.com/@ssenturkilayda/ya%C5%9Flanmay%C4%B1-makine-%C3%B6%C4%9Frenmesiyle-%C3%B6l%C3%A7ebilir-miyiz-epigenetik-saatler-ve-gen%C3%A7le%C5%9Fme-ara%C5%9Ft%C4%B1rmalar%C4%B1-052181289458?sharedUserId=ssenturkilayda
 
 **English summary.** Chronological age prediction from blood DNA methylation (GSE40279, n = 656)
 with Ridge, Elastic Net and XGBoost. CpG selection, imputation and scaling are fitted inside
